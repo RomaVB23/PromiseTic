@@ -10,6 +10,7 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -27,6 +28,12 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {NavigationContainer} from '@react-navigation/native'
+import {RootStackNavigator} from './src/navigation/RootStackNavigator/RootStackNavigator';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Camera} from './src/screens/Camera';
+
+const Stack = createNativeStackNavigator();
 
 const Section: React.FC<{
   title: string;
@@ -56,7 +63,7 @@ const Section: React.FC<{
   );
 };
 
-const App = () => {
+const Start = ({navigation}) => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
@@ -77,6 +84,10 @@ const App = () => {
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
             screen and then come back to see your edits.
+            <Button
+              title="Knopka"
+              onPress={() => navigation.navigate('Camera')}
+            />
             <Icon name="ios-person" size={30} color="#4F8EF7" />
           </Section>
           <Section title="See Your Changes">
@@ -92,6 +103,18 @@ const App = () => {
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+};
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      <RootStackNavigator />
+      {/* <Stack.Navigator>
+        <Stack.Screen name="Start" component={Start} />
+        <Stack.Screen name="Camera" component={Camera} />
+      </Stack.Navigator> */}
+    </NavigationContainer>
   );
 };
 
