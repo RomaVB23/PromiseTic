@@ -4,7 +4,7 @@ import {StatusBar, useColorScheme} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {NavigationContainer} from '@react-navigation/native';
-import {RootStackNavigator} from './src/navigation/RootStackNavigator/RootStackNavigator';
+import {RootStackNavigator} from '@/navigation/RootStackNavigator/RootStackNavigator';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';

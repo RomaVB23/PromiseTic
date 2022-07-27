@@ -8,9 +8,9 @@ import {
 import {RootStackParamList} from './types';
 import {RootRoutes} from './routes';
 // navigation Screens
-import {Camera} from '../../screens/Camera';
-import {VideoRedact} from '../../screens/VideoRedact';
-import {Galerey} from '../../screens/Galerey';
+import {Camera} from '@/screens/Camera';
+import {VideoRedact} from '@/screens/VideoRedact';
+import {Galerey} from '@/screens/Galerey';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
