@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import VisibilitySensor from '@svanboxel/visibility-sensor-react-native';
 import Video from 'react-native-video';
 
 // Icons
@@ -23,7 +25,7 @@ interface PostProps {
 }
 
 export const Post: React.FC<PostProps> = props => {
-  const [paused, setPaused] = useState<boolean>(false);
+  const [paused, setPaused] = useState<boolean>(true);
   const [post, setPost] = useState(props.post);
   const [isLike, setIsLike] = useState<boolean>(false);
 
@@ -40,70 +42,77 @@ export const Post: React.FC<PostProps> = props => {
     setIsLike(!isLike);
   };
   return (
-    <View style={styles.container}>
-      <TouchableWithoutFeedback onPress={onPlayPausePress}>
-        <View>
-          <Video
-            style={styles.video}
-            resizeMode={'cover'}
-            repeat={true}
-            paused={paused}
-            onError={e => console.log(e)}
-            source={{
-              uri: 'https://d8vywknz0hvjw.cloudfront.net/fitenium-media-prod/videos/45fee890-a74f-11ea-8725-311975ea9616/proccessed_720.mp4',
-            }}
-          />
-          <View style={styles.uiContainer}>
-            <View style={styles.rightContainer}>
-              <Image
-                style={styles.profilePictures}
-                source={{
-                  uri: 'https://upload.wikimedia.org/wikipedia/commons/9/92/Roman_Reigns_Tribute_to_the_Troops_2016.jpg',
-                }}
-              />
-              <TouchableOpacity
-                style={styles.iconContainer}
-                onPress={onLikePres}>
-                <AntDesign
-                  name={'heart'}
-                  size={40}
-                  color={isLike ? 'red' : 'white'}
+    <VisibilitySensor
+      onChange={isVisible => {
+        return (
+          console.log(isVisible), isVisible ? setPaused(false) : setPaused(true)
+        );
+      }}>
+      <View style={styles.container}>
+        <TouchableWithoutFeedback onPress={onPlayPausePress}>
+          <View>
+            <Video
+              style={styles.video}
+              resizeMode={'cover'}
+              repeat={true}
+              paused={paused}
+              onError={e => console.log(e)}
+              source={{
+                uri: 'https://d8vywknz0hvjw.cloudfront.net/fitenium-media-prod/videos/45fee890-a74f-11ea-8725-311975ea9616/proccessed_720.mp4',
+              }}
+            />
+            <View style={styles.uiContainer}>
+              <View style={styles.rightContainer}>
+                <Image
+                  style={styles.profilePictures}
+                  source={{
+                    uri: 'https://upload.wikimedia.org/wikipedia/commons/9/92/Roman_Reigns_Tribute_to_the_Troops_2016.jpg',
+                  }}
                 />
-                <Text style={styles.statsLabel}>123</Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.iconContainer}
+                  onPress={onLikePres}>
+                  <AntDesign
+                    name={'heart'}
+                    size={40}
+                    color={isLike ? 'red' : 'white'}
+                  />
+                  {/* <Text style={styles.statsLabel}>123</Text> */}
+                </TouchableOpacity>
 
-              <View style={styles.iconContainer}>
-                <FontAwesome name={'commenting'} size={40} color="white" />
-                <Text style={styles.statsLabel}>124</Text>
-              </View>
+                <View style={styles.iconContainer}>
+                  <FontAwesome name={'commenting'} size={40} color="white" />
+                  <Text style={styles.statsLabel}>124</Text>
+                </View>
 
-              <View style={styles.iconContainer}>
-                <Fontisto name={'share-a'} size={40} color="white" />
-                <Text style={styles.statsLabel}>124</Text>
-              </View>
-            </View>
-
-            <View style={styles.bottomContainer}>
-              <View>
-                <Text style={styles.handle}>@romavb</Text>
-                <Text style={styles.description}>work hard man @borat</Text>
-
-                <View style={styles.songRow}>
-                  <Entypo name={'beamed-note'} size={24} color="white" />
-                  <Text style={styles.songName}>Nf - The search</Text>
+                <View style={styles.iconContainer}>
+                  <Fontisto name={'share-a'} size={40} color="white" />
+                  <Text style={styles.statsLabel}>124</Text>
                 </View>
               </View>
-              <Image
-                style={styles.songImage}
-                source={{
-                  uri: 'https://upload.wikimedia.org/wikipedia/commons/9/92/Roman_Reigns_Tribute_to_the_Troops_2016.jpg',
-                }}
-              />
+
+              <View style={styles.bottomContainer}>
+                <View>
+                  <Text style={styles.handle}>@romavb</Text>
+                  <Text style={styles.description}>work hard man @borat</Text>
+
+                  <View style={styles.songRow}>
+                    <Entypo name={'beamed-note'} size={24} color="white" />
+                    <Text style={styles.songName}>Nf - The search</Text>
+                  </View>
+                </View>
+                <Image
+                  style={styles.songImage}
+                  source={{
+                    uri: 'https://upload.wikimedia.org/wikipedia/commons/9/92/Roman_Reigns_Tribute_to_the_Troops_2016.jpg',
+                  }}
+                />
+              </View>
             </View>
           </View>
-        </View>
-      </TouchableWithoutFeedback>
-    </View>
+        </TouchableWithoutFeedback>
+      </View>
+    </VisibilitySensor>
   );
 };
 
