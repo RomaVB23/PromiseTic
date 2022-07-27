@@ -1,20 +1,25 @@
-import {StyleSheet, Text, View, SafeAreaView, Button} from 'react-native';
+import {StyleSheet, Text, View, Button} from 'react-native';
 import React from 'react';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {RootScreenProps, RootRoutes} from '../../navigation/RootStackNavigator';
 
-export const Camera = ({navigation}) => {
+export const Camera: React.FC<RootScreenProps<RootRoutes.Camera>> = ({
+  navigation,
+}) => {
+  const insets = useSafeAreaInsets();
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={[styles.mainContainer, {paddingTop: insets.top}]}>
       <Text>Camera</Text>
       <Button
-        title="Knopka"
-        onPress={() => navigation.navigate('VideoRedact')}
+        title="Go"
+        onPress={() => navigation.navigate(RootRoutes.VideoRedact)}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
     backgroundColor: 'pink',
   },
